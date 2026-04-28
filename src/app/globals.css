@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-simoola-purple: #A294F9;
+  --color-simoola-dark: #0F0F12;
+  --color-simoola-neon-pink: #FF00FF;
+  --color-simoola-neon-blue: #00FFFF;
+  --color-simoola-yellow: #FFD700;
+  --color-simoola-text: #5D5A88;
+
+  --font-sans: var(--font-poppins), sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f9fafb; /* bg-gray-50 */
+}
