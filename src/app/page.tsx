@@ -1,60 +1,71 @@
 import Sidebar from '@/components/Sidebar';
-import RevenueCard from '@/components/RevenueCard';
-import OrderChart from '@/components/OrderChart';
+import HeroBanner from '@/components/dashboard/HeroBanner';
+import ActivitiesChart from '@/components/dashboard/ActivitiesChart';
+import TasksTable from '@/components/dashboard/TasksTable';
+import CalendarWidget from '@/components/dashboard/CalendarWidget';
+import KpiCards from '@/components/dashboard/KpiCards';
+import { Search, Bell } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Simoola | Dashboard',
+  description: 'Visão geral das atividades e métricas do Simoola.',
+};
 
 export default function DashboardPage() {
   return (
-    // Container principal: Flexbox para colocar a Sidebar ao lado do conteúdo
-<div className="flex min-h-screen bg-gray-50 text-slate-900">
+    <div className="flex min-h-screen bg-[#F8F9FA] text-slate-900 font-sans">
       
-      {/* 1. Sidebar Fixa */}
+      {/* Sidebar */}
       <Sidebar />
 
-      {/* 2. Área de Conteúdo */}
-      <main className="flex-1 p-8">
+      {/* Área de Conteúdo Principal */}
+      <main className="flex-1 flex flex-col md:flex-row h-screen overflow-hidden">
         
-        {/* Header do Dashboard */}
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <div className="flex items-center gap-4">
-            {/* Input de busca que você tem no print */}
-            <input 
-              type="text" 
-              placeholder="Search..." 
-              className="px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-simoola-purple"
-            />
-          </div>
-        </header>
+        {/* Coluna Central (Hero, Gráfico, Tarefas) */}
+        <div className="flex-1 p-8 overflow-y-auto no-scrollbar">
+          {/* Header (Pesquisa) */}
+          <header className="flex justify-between items-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-800">Dashboard</h1>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                <Search size={18} />
+              </div>
+              <input 
+                type="text" 
+                placeholder="Pesquisar..." 
+                className="w-64 pl-10 pr-4 py-2.5 bg-white border-none rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-[#C5B4FF] transition-all text-sm"
+              />
+            </div>
+          </header>
 
-        {/* Grid de Cards - Responsivo: 1 coluna no mobile, 3 no desktop */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
-          {/* Card de Receita (Revenue) */}
-          <div className="md:col-span-2">
-            <RevenueCard />
-          </div>
-
-          {/* Card de Tempo de Pedido */}
-          <div className="md:col-span-1">
-            <OrderChart />
-          </div>
-
-          {/* Segunda linha de cards */}
-          <div className="md:col-span-1 bg-white p-6 rounded-2xl shadow-sm">
-            <h3 className="font-semibold mb-4">Your Rating</h3>
-            {/* Aqui entrarão os círculos de 85%, 92% */}
-          </div>
-
-          <div className="md:col-span-1 bg-white p-6 rounded-2xl shadow-sm">
-            <h3 className="font-semibold mb-4">Most Ordered Food</h3>
-            {/* Lista de comidas */}
-          </div>
-
-          <div className="md:col-span-1">
-            {/* Outro gráfico ou métrica */}
-          </div>
-
+          <HeroBanner />
+          <ActivitiesChart />
+          <TasksTable />
         </div>
+
+        {/* Painel Lateral Direito (Calendário, Notificações, KPIs) */}
+        <aside className="w-[320px] bg-[#F8F9FA] p-8 border-l border-gray-100 overflow-y-auto no-scrollbar flex-shrink-0 hidden lg:block">
+          
+          {/* Header Direito (Data e Notificação) */}
+          <div className="flex justify-between items-center mb-10">
+            <span className="text-sm font-semibold text-gray-600">
+              {new Date().toLocaleDateString('pt-BR', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </span>
+            <div className="flex items-center gap-4">
+              <span className="text-xs font-bold text-gray-400">PT <span className="text-gray-800">▼</span></span>
+              <div className="relative cursor-pointer">
+                <Bell size={20} className="text-gray-600" />
+                <div className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full border-2 border-[#F8F9FA]"></div>
+              </div>
+            </div>
+          </div>
+
+          <CalendarWidget />
+          <KpiCards />
+
+        </aside>
+
       </main>
     </div>
   );

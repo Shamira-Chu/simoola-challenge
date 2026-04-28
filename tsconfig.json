@@ -17,7 +17,7 @@
     "jsx": "preserve",
     "strict": true,
     "noEmit": true,
-    // "baseUrl": ".",
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "src/*"
@@ -33,12 +33,8 @@
   },
   "include": [
     "src",
-    ".next/types/**/*.ts"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
+    ".next/types/**/*.ts",
+    "next-env.d.ts"
   ],
   "exclude": [
     "node_modules"
